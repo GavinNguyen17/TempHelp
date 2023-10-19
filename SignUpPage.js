@@ -1,7 +1,6 @@
 import React,  { useState } from "react";
 
 const SignUp= () => {
-  
   const [User, setUsername] = useState("");
   const [Pass, setPassword]=useState("");
   function getUser(val){
@@ -10,28 +9,20 @@ const SignUp= () => {
   function getPass(val){
     setPassword(val.target.value)
   }
-  const clickHandler = (e) => {
-    e.preventDefault();
+  const clickHandler = () => {
     
-    var fetchURL="/Sign-Up"+User+Pass
-    fetch(fetchURL)
+    fetch("Sign-Up/"+User+"/"+Pass)
     
-    .then((response) => response.text())
-    //.then((data) => console.log(data))
+    .then(response => response.json())
     .then(function(data){
-      data=JSON.parse(data);
-  
-      if(data.code===200)
-      {
-        setUsername(data.Name)
+    data=JSON.parse(data);
+    if(data.code===200)
+    {
+    setPassword(data.name)
+    }
+    })
+    console.log(Pass) 
       }
-      else{
-        setUsername("response code: " + data.code + " and message recieved: " + data.error);
-      }
-    });
-      }
-    
-    
     return (
     <div>
         
